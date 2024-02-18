@@ -1,0 +1,66 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+void print(vector<int> nums){
+
+	for(int i=0;i<nums.size();i++){
+		cout<<nums[i]<<" ";
+	}
+	cout<<endl;
+
+}
+
+int searchFirstOrLast(vector<int>& nums, int target, bool isFirst) {
+
+	int s = 0;
+	int e = nums.size()-1;
+	int ans = -1;
+	while(s<=e){
+		int mid = (s+e)/2;
+		if(nums[mid] == target){
+			ans = mid;
+			if( isFirst ){
+				e = mid-1;
+			} else {
+				s = mid+1;
+			}
+		} else if( nums[mid] > target ){
+			e = mid-1;
+		} else if( nums[mid] < target ){
+			s = mid+1;
+		}
+	}
+	return ans;
+}
+
+vector<int> searchRange(vector<int>& nums, int target) {
+	int firstElement = searchFirstOrLast(nums, target, true);
+	int lastElement = searchFirstOrLast(nums, target, false);
+	return {firstElement, lastElement};
+}
+
+int main(){
+
+	int n;
+	cin>>n;
+
+	vector<int> nums;
+
+ 	for(int i=0;i<n;i++){
+ 		int temp;
+ 		cin>>temp;
+ 		nums.push_back(temp);
+ 	}
+ 	int target;
+ 	cin>>target;
+
+	vector<int> ans = searchRange(nums, target);
+	print(ans);
+
+	return 0;
+}
+
+/*
+
+*/
